@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Create a Recipe</title>
+</head>
+<body>
+    <div class="box_body_new_recipe">
+        <div>
+            <div class="box_nav">
+                <h2 class="title">Add a New Recipe!</h2>
+                <div class="nav">
+                    <a href="/recipes/home">Back to Recipes</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="error">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+    
+            {% endwith %}
+        </div>
+        <form action="/recipes" method="post" class="new_recipe_form">
+            <div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div>
+                    <label for="description">Description</label>
+                    <textarea type="text" name="description" id="description"></textarea>
+                </div>
+                <div>
+                    <label for="instructions">Instructions:</label>
+                    <textarea type="text" name="instructions" id="instructions" rows="10"></textarea>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="date_cooked">Date Cooked:</label>
+                    <input type="date" name="date_cooked" id="date_cooked">
+                </div>
+                <div>
+                    <p>Under 30 min?</p>
+                    <label for="yes">Yes</label>
+                    <input type="radio" name="under_30" value="1" id="yes">
+                    <label for="no">No</label>
+                    <input type="radio" name="under_30" value="0" id="no">
+                    <input type="submit" value="Submit"  class="new_recipe_button">
+                </div>
+                <input type="hidden" name="member_id" value="{{session['member_id']}}">
+            </div>
+    </div>
+    </form>
+</body>
+</html>

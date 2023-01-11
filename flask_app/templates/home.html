@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Recipes</title>
+</head>
+<body>
+    <div class="welcome">
+        <h2>Welcome, <span class="username">{{ member.first_name }}</span>!</h2>
+    </div>
+    <div class="center_body">
+
+        <div class="inner_body">
+            <div class="top-nav">
+                <div>
+                    <p class="catch_phrase">All posted recipes:</p>
+                </div>
+                <div>
+                    <form>
+                        <button class="create" formaction="/recipes/create">+ Create</button>
+                        <button class="logout" formaction="/logout">Logout</button>
+                    </form>
+                </div>
+            </div>
+            <div class="box_body">
+                <div class="results_table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>30 min Prep</th>
+                                <th>Posted By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for recipe in recipes: %}
+                            <tr>
+                                <td>{{recipe.name}}</td>
+                                <td>{% if recipe.under_30: %}
+                                    Yes
+                                    {% else %}
+                                    No
+                                    {% endif %}
+                                </td>
+                                <td>{{recipe.member.first_name}}</td>
+                                <td>
+                                    <a href="/recipes/{{recipe.id}}">View Recipe</a>
+                                    {% if recipe.member.id == member.id: %}
+                                    <a href="/recipes/edit/{{recipe.id}}">Edit</a>
+                                    <a href="/recipes/delete/{{recipe.id}}">Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

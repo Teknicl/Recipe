@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>Recipe Details</title>
+</head>
+<body>
+    <div class="box_body">
+        <div class="box_recipe_detail">
+            <div class="flex-box">
+                <h2>{{member.first_name}} {{member.last_name}}'s chosen recipe</h1>
+                <div class="nav">
+                    <a href="/recipes/home">Dashboard</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+            </div>
+            <h2 class="username">{{recipe.name}}</h2>
+            <div class="container with-border white">
+                <div class="flex-box">
+                    <p class="section_title">Description:</p>
+                    <p>{{recipe.description}}</p>
+                </div>
+                <div class="flex-box">
+                    <p class="section_title">Under 30 min:</p>
+                    <p>
+                    {% if recipe.under_30 == True: %}
+                        Yes
+                    {% else: %}
+                        No
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="flex-box">
+                    <p class="section_title">Instructions:</p>
+                    <p> {{recipe.instructions}}</p>
+                </div>
+                <div class="flex-box">
+                    <p class="section_title">Date Cooked:</p>
+                    <p>{{recipe.date_cooked}}</p>
+                </div>
+                <div class="flex-box">
+                    <p class="section_title">Made by:</p>
+                    <p>{{recipe.member.first_name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
